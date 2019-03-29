@@ -12,17 +12,18 @@ import time
 import os
 
 class ElementCoder(object):
-	def __init__(self, latent_size=4, batches_per_epoch=100):
+	def __init__(self, latent_size=4, batches_per_epoch=100, hidden_layers=[128, 128],
+				max_steps=2000, batch_size=64, learning_rate=0.0001, test_freq=5):
 		self.tf_precision = eval("tf.float32")
-		self.hidden_layers = [128, 128]
-		self.learning_rate = 0.0001
+		self.hidden_layers = hidden_layers
+		self.learning_rate = learning_rate
 		self.weight_decay = None
-		self.max_steps = 2000
-		self.batch_size = 64
+		self.max_steps = max_steps
+		self.batch_size = batch_size
 		self.max_checkpoints = 3
 		self.activation_function = tf.tanh
 		self.step = 0
-		self.test_freq = 5
+		self.test_freq = test_freq
 		self.name = "ECoder_"+time.strftime("%a_%b_%d_%H.%M.%S_%Y")
 		self.network_directory = "./"+self.name
 		self.latent_size = latent_size
