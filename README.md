@@ -17,22 +17,14 @@ You can run with the default parameters with the following command
 ```
 python train.py
 ```
-As the network trains, it will run a test after every 5th epoch by printing the original features fed into the network and the corresponding reconstructed features for a random sampling of 10 different atomic species. After training has finished, the best checkpoint is reloaded, a test step is rerun for that checkpoint, and the resulting latent space vectors are written to an emodes.dat file.
+As the network trains, it will run a test after every 5th epoch by printing the original features fed into the network and the corresponding reconstructed features for a random sampling of 10 different atomic species. After training has finished, the best checkpoint is reloaded, a test step is rerun for that checkpoint, and the resulting latent space vectors are written to an emodes.dat file where the rows correspond to elements as listed in the element_data.py file and the columns are the latent vector dimensions.
 
 ## Training your own model
-To train your own model run
-```
-python train.py train_set.pkl
-```
-which uses the same hyperparameters laid out in the paper and stops after 1000 epochs. The model is evaluated on the validation set after every 5 epochs and prints out a random sample of 10 true formation energies and the corresponding predictions, along with mean absolute errors, mean signed errors, and root mean square errors over the validation set. Only saves a new checkpoint if the evaluation loss is lower than the last saved checkpoint. After training finishes, the best checkpoint is reloaded and the errors are evaluated over the test set. Trained model create a new directory with the data and time the model was started. To use your own model with evaluate.py, replace the default model directory with the directory for your newly trained model in the following line.
-```
-model = network_model.NNModel(name="ElpasEM_Thu_Mar_21_13.16.26_2019")
-```
+To train your own model with different hyperparameters, you can adjust variables passed to the network in train.py. Most parameters passed in should be ints, but learning_rate should be a float (generally in the range of 1.e-1 to 1.e-6) and hidden_layers should be a list of ints where both the encoder and decoder will have number of hidden layers equal to the length of the list and the values in the list will correspond to the number of neurons in each layer (e.g. hidden_layers=[128, 128] will result in an encoder and decoder which both have two hidden layers with 128 neurons in each layer).
+
+Since our data set is the elements up to Bi excluding f-block, then a typical epoch would only have 69 data points which may only lead to 1 or 2 batches per epoch. Instead, batches_per_epoch allows to decide how many batches you want to train on before 1 "epoch" completes. Batches are made by randomly selecting batch_size number of atomic species with repeats allowed in the same batch.  
+
+The data set used is in element_data.py should you wish to add, remove, or alter any data used for your own training set.
 
 ## Citing this work
-A preprint of this paper is available at https://arxiv.org/abs/1811.00123 for citation.
-
-
-## Acknowledgments
-Thanks to the work linked below for the data set of elpasolites and formation energies used here to train the model.
-https://doi.org/10.1103/PhysRevLett.117.135502
+A preprint of this paper is available at https://arxiv.org/abs/1811.00123 for citation. Link to peer-reviewed publication forthcoming.
