@@ -55,19 +55,10 @@ class ElementCoder(object):
 		feed_dict = self.fill_feed_dict(batch_data)
 		latent_features = self.sess.run(self.latent_features,  feed_dict=feed_dict)
 		latent_shape = latent_features.shape
-		strng = "["
-		for i in range(latent_shape[0]):
-			strng += "["
-			for j in range(latent_shape[1]):
-				strng += str(latent_features[i,j])
-				if j != (latent_shape[1]-1):
-					strng += ", "
-			if i != (latent_shape[0]-1):
-				strng += "],\n"
-			else:
-				strng += "]"
-		strng += "]"
-		print(strng)
+		with open("emodes.dat", "w") as f:
+			for i in range(latent_shape[0]):
+				f.write(AtomData[i+1][0]+", "+str(latent_features[i,0])+", "+str(latent_features[i,1])+", "
+					+str(latent_features[i,2])+", "+str(latent_features[i,3])+"\n")
 		self.sess.close()
 		return
 
