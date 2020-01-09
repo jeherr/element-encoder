@@ -1,4 +1,4 @@
-# element encoder
+# Element encoder
 Autoencoder neural network to compress properties of atomic species into a vector representation
 
 ## Prerequisites
@@ -27,4 +27,4 @@ Since our data set is the elements up to Bi excluding f-block, then a typical ep
 The data set used is in element_data.py should you wish to add, remove, or alter any data used for your own training set.
 
 ## Citing this work
-A preprint of this paper is available at https://arxiv.org/abs/1811.00123 for citation. Link to peer-reviewed publication forthcoming.
+Peer-reviewed publication available at https://doi.org/10.1063/1.5108803 for citation.
