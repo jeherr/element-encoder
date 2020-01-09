@@ -1,11 +1,11 @@
 # Element encoder
-Autoencoder neural network to compress properties of atomic species into a vector representation
+Autoencoder neural network to compress properties of atomic species into a vector representation. This code accompanies a publication listed at the bottom of the README. The code was developed using a Tensorflow version prior to 2.0. You can enable the v1 compatability in version 2, or use an older version.
 
 ## Prerequisites
 Required packages
 ```
 numpy
-tensorflow
+tensorflow v1
 ```
 
 ## Getting Started
